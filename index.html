@@ -448,34 +448,24 @@ function sendWhatsApp(){
   var nt=document.getElementById("f-notes").value.trim();
   if(!med||!doc){alert("Please fill Medical/Hospital name and Doctor name.");return;}
   var ids=Object.keys(cart).filter(function(i){return cart[i]>0;});
-  var sub=0,gstT=0,lines="";
+  var grand=0, lines="";
   ids.forEach(function(id){
     var p=allProducts.filter(function(x){return x.id==id;})[0]; if(!p)return;
-    var qty=cart[id],base=p.rate*qty,gst=base*p.gst/100;
-    sub+=base; gstT+=gst;
-    lines+="\n* "+p.name+" ("+p.brand+")"
-      +"\n  Salt: "+(p.salt||"-")
-      +"\n  Pack: "+(p.pack||"-")+"  |  Box: "+(p.box||"-")
-      +"\n  Qty: "+qty+"  |  Rate: Rs."+p.rate.toFixed(2)+" + GST "+p.gst+"%"
-      +"\n  Line Total: Rs."+(base+gst).toFixed(2)+"\n";
+    var qty=cart[id], base=p.rate*qty, gst=base*p.gst/100, total=base+gst;
+    grand+=total;
+    lines+=p.name+"\n"
+      +"  Qty: "+qty+"  |  Rate: Rs."+p.rate.toFixed(2)+"  |  GST: "+p.gst+"%  |  Amt: Rs."+total.toFixed(2)+"\n";
   });
-  var grand=sub+gstT;
   var now=new Date().toLocaleString("en-IN");
-  var msg="NEW ORDER - H CARE PHARMA DISTRIBUTORS\n"
-    +"=========================================\n"
-    +"Medical/Hospital : "+med+"\n"
-    +"Doctor/Contact   : "+doc+"\n"
-    +(ph?"Phone            : "+ph+"\n":"")
-    +(nt?"Notes            : "+nt+"\n":"")
-    +"Order Time       : "+now+"\n"
-    +"=========================================\n"
-    +"ORDER ITEMS:\n"+lines
-    +"=========================================\n"
-    +"Subtotal   : Rs."+sub.toFixed(2)+"\n"
-    +"GST Total  : Rs."+gstT.toFixed(2)+"\n"
-    +"GRAND TOTAL: Rs."+grand.toFixed(2)+"\n"
-    +"=========================================\n"
-    +"Sent via H Care Pharma Order Portal - Aundipatti, Theni";
+  var msg="*ORDER - H CARE PHARMA DISTRIBUTORS*\n"
+    +"*"+med+"*  |  Dr."+doc+"\n"
+    +(ph?ph+"  ":"")+(nt?"|  "+nt:"")+"\n"
+    +now+"\n"
+    +"------------------------------------------\n"
+    +lines
+    +"------------------------------------------\n"
+    +"*GRAND TOTAL: Rs."+grand.toFixed(2)+"*\n"
+    +"H Care Pharma - Aundipatti, Theni";
   window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank");
   cart={}; qtys={};
   updateBadge(); closeModal();
