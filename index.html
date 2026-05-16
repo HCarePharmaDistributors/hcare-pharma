@@ -168,9 +168,6 @@ header { background:var(--w); border-bottom:2.5px solid var(--or); position:stic
   <select class="fsel" id="brand-filter" onchange="renderProducts()"><option value="">All Brands</option></select>
   <select class="fsel" id="gst-filter" onchange="renderProducts()">
     <option value="">All GST</option>
-    <option value="5">GST 5%</option>
-    <option value="12">GST 12%</option>
-    <option value="18">GST 18%</option>
   </select>
   <button class="rbtn" onclick="loadSheet()">&#8635; Refresh</button>
 </div>
@@ -279,7 +276,7 @@ function parseCSV(text) {
     brand: col(["brand name","brand","company","manufacturer","mfr"]),
     mrp:   col(["mrp","m.r.p","max retail","retail price"]),
     rate:  col(["selling rate","selling price","our rate","rate","price","sp"]),
-    gst:   col(["gst%","gst rate","gst","tax%","tax"]),
+    gst:   col(["gst%","gst rate","gst %","gst","tax%","tax rate","tax"," gst"]),  
     image: col(["image url","image","img","photo","pic"])
   };
 
@@ -292,7 +289,7 @@ function parseCSV(text) {
     out.push({
       id:r, name:nm, salt:g("salt"), pack:g("pack"), box:g("box"), brand:g("brand"),
       mrp:parseFloat(g("mrp"))||0, rate:parseFloat(g("rate"))||0,
-      gst:parseFloat(g("gst"))||12, image:g("image")
+      gst:parseFloat(g("gst"))||0, image:g("image")
     });
   }
   return out;
@@ -316,6 +313,14 @@ function populateBrands() {
   var sel=document.getElementById("brand-filter");
   sel.innerHTML='<option value="">All Brands</option>'+
     brands.map(function(b){return'<option value="'+esc(b)+'">'+esc(b)+'</option>';}).join("");
+
+  // Populate GST filter dynamically from actual data
+  var gstVals=[];
+  allProducts.forEach(function(p){if(p.gst>0&&gstVals.indexOf(p.gst)<0)gstVals.push(p.gst);});
+  gstVals.sort(function(a,b){return a-b;});
+  var gsel=document.getElementById("gst-filter");
+  gsel.innerHTML='<option value="">All GST</option>'+
+    gstVals.map(function(g){return'<option value="'+g+'">GST '+g+'%</option>';}).join("");
 }
 function getFiltered() {
   var q=document.getElementById("search").value.toLowerCase().trim();
@@ -358,8 +363,8 @@ function renderProducts() {
         +'<div class="ppricing">'
           +(p.mrp>0?'<span class="pmrp">MRP &#8377;'+p.mrp.toFixed(2)+'</span>':'')
           +'<span class="prate">&#8377;'+p.rate.toFixed(2)+'</span>'
-          +'<span class="pgst">GST '+p.gst+'%</span>'
-          +'<span class="pgstamt">(+&#8377;'+ga+')</span>'
+          +(p.gst>0?'<span class="pgst">GST '+p.gst+'%</span>':'')
+          +(p.gst>0?'<span class="pgstamt">(+&#8377;'+ga+')</span>':'')
         +'</div>'
         +'<div class="qrow">'
           +'<div class="qctrl">'
