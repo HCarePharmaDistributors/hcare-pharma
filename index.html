@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H Care Pharma Distributors - Aundipatti, Theni</title>
+<style>
+:root {
+  --or:#F97316; --orl:#FFF7ED; --orm:#FED7AA; --ord:#C2410C;
+  --w:#ffffff; --g50:#F9FAFB; --g100:#F3F4F6; --g200:#E5E7EB;
+  --g400:#9CA3AF; --g600:#4B5563; --g900:#111827;
+  --r:10px; --rl:14px;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; background:var(--g50); color:var(--g900); }
+
+header { background:var(--w); border-bottom:2.5px solid var(--or); position:sticky; top:0; z-index:100; box-shadow:0 2px 10px rgba(0,0,0,.08); }
+.topbar { background:var(--or); color:var(--w); font-size:11px; padding:5px 16px; display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; text-align:center; line-height:1.6; }
+.topbar a { color:var(--w); text-decoration:none; }
+.topbar a:hover { text-decoration:underline; }
+.topbar .sep { opacity:.5; }
+.hi { max-width:1200px; margin:0 auto; padding:0 16px; display:flex; align-items:center; justify-content:space-between; height:62px; }
+.logo { font-size:20px; font-weight:800; color:var(--g900); line-height:1.1; }
+.logo .dot { color:var(--or); }
+.logo small { font-size:10px; font-weight:400; color:var(--g400); letter-spacing:1.2px; text-transform:uppercase; display:block; }
+.cart-btn { display:flex; align-items:center; gap:8px; background:var(--or); color:var(--w); border:none; border-radius:var(--r); padding:9px 18px; cursor:pointer; font-size:14px; font-weight:700; }
+.cart-btn:hover { background:var(--ord); }
+.cbadge { background:var(--w); color:var(--or); border-radius:50%; width:20px; height:20px; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+
+.hero { background:var(--g900); color:var(--w); padding:18px 20px; text-align:center; }
+.hero h1 { font-size:21px; font-weight:800; }
+.hero h1 span { color:var(--or); }
+.hero p { font-size:12px; color:var(--g400); margin-top:4px; }
+
+.controls { max-width:1200px; margin:0 auto; padding:14px 16px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.sw { flex:1; min-width:200px; position:relative; }
+.sw input { width:100%; padding:9px 12px 9px 34px; border:1.5px solid var(--g200); border-radius:var(--r); background:var(--w); font-size:14px; color:var(--g900); outline:none; }
+.sw input:focus { border-color:var(--or); }
+.si { position:absolute; left:10px; top:50%; transform:translateY(-50%); color:var(--g400); font-size:14px; pointer-events:none; }
+.fsel { padding:9px 10px; border:1.5px solid var(--g200); border-radius:var(--r); background:var(--w); font-size:13px; color:var(--g900); outline:none; cursor:pointer; }
+.fsel:focus { border-color:var(--or); }
+.rbtn { padding:9px 14px; border:1.5px solid var(--g200); border-radius:var(--r); background:var(--w); cursor:pointer; font-size:13px; color:var(--g600); white-space:nowrap; }
+.rbtn:hover { border-color:var(--or); color:var(--or); }
+
+.sbar { max-width:1200px; margin:0 auto; padding:0 16px 10px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.spill { background:var(--w); border:1px solid var(--g200); border-radius:20px; padding:3px 10px; font-size:12px; color:var(--g600); }
+.spill b { color:var(--or); }
+.lupd { font-size:11px; color:var(--g400); margin-left:auto; }
+
+.grid { max-width:1200px; margin:0 auto; padding:0 16px 80px; display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:10px; }
+
+.pc { background:var(--w); border:1.5px solid var(--g200); border-radius:var(--rl); padding:12px; display:flex; gap:10px; transition:border-color .2s,box-shadow .2s; }
+.pc:hover { border-color:var(--orm); box-shadow:0 4px 14px rgba(249,115,22,.1); }
+.pimg { width:68px; height:68px; flex-shrink:0; border-radius:var(--r); background:var(--orl); border:1px solid var(--orm); display:flex; align-items:center; justify-content:center; font-size:28px; overflow:hidden; }
+.pimg img { width:100%; height:100%; object-fit:cover; }
+.pinfo { flex:1; min-width:0; }
+.pbrand { font-size:10px; font-weight:700; color:var(--ord); text-transform:uppercase; letter-spacing:.8px; margin-bottom:2px; }
+.pname { font-size:14px; font-weight:700; color:var(--g900); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:1px; }
+.psalt { font-size:11px; color:var(--g400); margin-bottom:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ptags { display:flex; gap:4px; flex-wrap:wrap; margin-bottom:6px; }
+.ptag { background:var(--g100); border-radius:4px; padding:2px 6px; font-size:10px; color:var(--g600); }
+.ptag-d { background:#FFF7ED; color:var(--ord); }
+.ppricing { display:flex; align-items:center; gap:6px; margin-bottom:7px; flex-wrap:wrap; }
+.pmrp { font-size:11px; color:var(--g400); text-decoration:line-through; }
+.prate { font-size:16px; font-weight:800; color:var(--g900); }
+.pgst { font-size:10px; background:#ECFDF5; color:#065F46; border-radius:4px; padding:2px 6px; font-weight:600; }
+.pgstamt { font-size:10px; color:var(--g400); }
+.qrow { display:flex; align-items:center; gap:6px; }
+.qctrl { display:flex; align-items:center; border:1.5px solid var(--g200); border-radius:var(--r); overflow:hidden; }
+.qctrl button { width:28px; height:30px; background:var(--g100); border:none; cursor:pointer; font-size:17px; font-weight:700; color:var(--g600); line-height:1; }
+.qctrl button:hover { background:var(--orm); }
+.qctrl input { width:38px; height:30px; text-align:center; border:none; border-left:1.5px solid var(--g200); border-right:1.5px solid var(--g200); font-size:13px; font-weight:700; color:var(--g900); background:var(--w); outline:none; -moz-appearance:textfield; }
+.qctrl input::-webkit-outer-spin-button,.qctrl input::-webkit-inner-spin-button { -webkit-appearance:none; }
+.abtn { flex:1; height:30px; background:var(--or); color:var(--w); border:none; border-radius:var(--r); cursor:pointer; font-size:12px; font-weight:700; transition:background .2s; }
+.abtn:hover { background:var(--ord); }
+.abtn.added { background:#059669; }
+
+.sbox { grid-column:1/-1; text-align:center; padding:50px 20px; }
+.sbox .ico { font-size:48px; display:block; margin-bottom:14px; }
+.sbox h3 { font-size:18px; font-weight:700; margin-bottom:8px; }
+.sbox p { font-size:13px; color:var(--g400); line-height:1.9; }
+.sbox a { color:var(--or); cursor:pointer; text-decoration:underline; }
+.spin { width:40px; height:40px; margin:0 auto 16px; border:3px solid var(--g200); border-top-color:var(--or); border-radius:50%; animation:spin .8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* progress bar while loading */
+.pbar { height:3px; background:var(--g200); border-radius:2px; margin:0 auto 16px; width:200px; overflow:hidden; }
+.pbar-fill { height:100%; width:30%; background:var(--or); border-radius:2px; animation:pbar 1.2s ease-in-out infinite; }
+@keyframes pbar { 0%{transform:translateX(-100%)} 100%{transform:translateX(400%)} }
+
+.ov { display:none; position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:200; }
+.ov.open { display:block; }
+.csheet { position:fixed; right:0; top:0; bottom:0; width:min(400px,100vw); background:var(--w); box-shadow:-4px 0 20px rgba(0,0,0,.15); display:flex; flex-direction:column; z-index:201; transform:translateX(100%); transition:transform .3s ease; }
+.ov.open .csheet { transform:translateX(0); }
+.chead { padding:16px 20px; border-bottom:1px solid var(--g200); display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+.chead h2 { font-size:17px; font-weight:700; }
+.xbtn { width:30px; height:30px; border-radius:8px; border:1.5px solid var(--g200); background:transparent; cursor:pointer; font-size:18px; color:var(--g600); line-height:1; }
+.cbody { flex:1; overflow-y:auto; padding:12px 16px; }
+.citem { display:flex; gap:8px; align-items:flex-start; padding:9px 0; border-bottom:1px solid var(--g100); }
+.cdot { width:8px; height:8px; border-radius:50%; background:var(--or); flex-shrink:0; margin-top:5px; }
+.cinfo { flex:1; min-width:0; }
+.cname { font-size:13px; font-weight:600; margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cmeta { font-size:11px; color:var(--g400); }
+.crem { font-size:11px; color:#EF4444; background:none; border:none; cursor:pointer; padding:0; margin-top:3px; display:block; }
+.cprice { text-align:right; flex-shrink:0; }
+.cpm { font-size:14px; font-weight:700; }
+.cps { font-size:10px; color:var(--g400); }
+.cfoot { padding:14px 16px; border-top:1px solid var(--g200); flex-shrink:0; background:var(--w); }
+.tline { display:flex; justify-content:space-between; font-size:13px; color:var(--g600); padding:3px 0; }
+.tline.grand { font-size:17px; font-weight:800; color:var(--g900); border-top:1.5px solid var(--g200); padding-top:10px; margin-top:6px; }
+.pbtn { width:100%; padding:13px; background:var(--or); color:var(--w); border:none; border-radius:var(--r); cursor:pointer; font-size:15px; font-weight:700; margin-top:12px; }
+.pbtn:hover { background:var(--ord); }
+.ecart { text-align:center; padding:40px 16px; color:var(--g400); font-size:14px; }
+.ecart span { font-size:44px; display:block; margin-bottom:10px; }
+
+.mbg { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:300; align-items:center; justify-content:center; padding:20px; }
+.mbg.open { display:flex; }
+.modal { background:var(--w); border-radius:var(--rl); padding:24px; width:100%; max-width:420px; box-shadow:0 20px 50px rgba(0,0,0,.2); max-height:90vh; overflow-y:auto; }
+.mico { font-size:30px; margin-bottom:8px; }
+.modal h3 { font-size:18px; font-weight:800; margin-bottom:3px; }
+.modal .msub { font-size:12px; color:var(--g400); margin-bottom:18px; }
+.field { margin-bottom:12px; }
+.field label { font-size:11px; font-weight:700; color:var(--g600); text-transform:uppercase; letter-spacing:.5px; display:block; margin-bottom:5px; }
+.field input { width:100%; padding:10px 12px; border:1.5px solid var(--g200); border-radius:var(--r); font-size:14px; color:var(--g900); outline:none; background:var(--w); }
+.field input:focus { border-color:var(--or); }
+.mact { display:flex; gap:8px; margin-top:18px; }
+.bcnl { flex:1; padding:11px; border:1.5px solid var(--g200); border-radius:var(--r); background:transparent; cursor:pointer; font-size:14px; color:var(--g600); }
+.bwa { flex:2; padding:11px; background:#25D366; color:var(--w); border:none; border-radius:var(--r); cursor:pointer; font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:7px; }
+.bwa:hover { background:#1ebe5d; }
+
+.toast { position:fixed; bottom:20px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--g900); color:var(--w); border-radius:var(--r); padding:10px 20px; font-size:13px; font-weight:600; z-index:500; transition:transform .3s; white-space:nowrap; pointer-events:none; }
+.toast.show { transform:translateX(-50%) translateY(0); }
+
+@media(max-width:600px) {
+  .grid { grid-template-columns:1fr; padding:0 10px 80px; }
+  .hero h1 { font-size:17px; }
+  .controls { padding:10px 10px; gap:6px; }
+  .hi { padding:0 12px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <span>&#128205; 55/1, Sai Diya Paradise Complex, Velappar Kovil Road, Seenivasa Nagar, <b>Aundipatti - Theni - 625512</b></span>
+    <span class="sep">|</span>
+    <span>&#128222; <a href="tel:8807305630">8807305630</a> &nbsp;/&nbsp; <a href="tel:7010207761">7010207761</a></span>
+    <span class="sep">|</span>
+    <span>&#128231; <a href="mailto:hcarepharmadist2025@gmail.com">hcarepharmadist2025@gmail.com</a></span>
+  </div>
+  <div class="hi">
+    <div class="logo">H<span class="dot">&#9679;</span>CARE <small>Pharma Distributors</small></div>
+    <button class="cart-btn" onclick="openCart()">&#128722; Cart <span class="cbadge" id="cart-count">0</span></button>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>Wholesale Medicine <span>Stock List</span></h1>
+  <p>Best rates &bull; Genuine brands &bull; Fast delivery &bull; Aundipatti, Theni District</p>
+</div>
+
+<div class="controls">
+  <div class="sw">
+    <span class="si">&#128269;</span>
+    <input type="text" id="search" placeholder="Search medicine, brand, salt..." oninput="renderProducts()">
+  </div>
+  <select class="fsel" id="brand-filter" onchange="renderProducts()"><option value="">All Brands</option></select>
+  <select class="fsel" id="gst-filter" onchange="renderProducts()">
+    <option value="">All GST</option>
+    <option value="5">GST 5%</option>
+    <option value="12">GST 12%</option>
+    <option value="18">GST 18%</option>
+  </select>
+  <button class="rbtn" onclick="loadSheet()">&#8635; Refresh</button>
+</div>
+
+<div class="sbar" id="sbar" style="display:none">
+  <div class="spill">Total: <b id="stat-total">0</b> products</div>
+  <div class="spill">Showing: <b id="stat-showing">0</b></div>
+  <span class="lupd" id="lupd"></span>
+</div>
+
+<div class="grid" id="grid">
+  <div class="sbox"><div class="spin"></div><h3>Loading Stock List...</h3><p>Fetching latest prices from Google Sheet</p></div>
+</div>
+
+<!-- CART -->
+<div class="ov" id="cart-ov" onclick="ovClick(event)">
+  <div class="csheet">
+    <div class="chead"><h2>&#128722; Your Cart</h2><button class="xbtn" onclick="closeCart()">&#10005;</button></div>
+    <div class="cbody" id="cbody"></div>
+    <div class="cfoot" id="cfoot" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ORDER MODAL -->
+<div class="mbg" id="order-modal">
+  <div class="modal">
+    <div class="mico">&#128203;</div>
+    <h3>Complete Your Order</h3>
+    <p class="msub">Fill your details &mdash; order will be sent to H Care via WhatsApp</p>
+    <div class="field"><label>Medical / Hospital / Clinic Name *</label><input type="text" id="f-medical" placeholder="e.g. City Hospital, Sri Devi Clinic"></div>
+    <div class="field"><label>Doctor / Contact Person *</label><input type="text" id="f-doctor" placeholder="e.g. Dr. Ramesh Kumar"></div>
+    <div class="field"><label>Phone Number</label><input type="tel" id="f-phone" placeholder="e.g. 9876543210"></div>
+    <div class="field"><label>Address / Notes (optional)</label><input type="text" id="f-notes" placeholder="Delivery address or special notes"></div>
+    <div class="mact">
+      <button class="bcnl" onclick="closeModal()">Cancel</button>
+      <button class="bwa" onclick="sendWhatsApp()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Send via WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var WA = "917010207761";
+// Direct Google Sheet CSV URL (published)
+var SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQkKhxN9fyFuWdmK64COLLakQGy7eDxt7GMkbUTh1VN5uAdt-IpGc4t8OetiRbZwArYxBQ3lw_LNG6U/pub?gid=0&single=true&output=csv";
+
+// CORS proxies — tried in order until one works
+var PROXIES = [
+  function(u){ return "https://corsproxy.io/?" + encodeURIComponent(u); },
+  function(u){ return "https://api.allorigins.win/raw?url=" + encodeURIComponent(u); },
+  function(u){ return "https://cors-anywhere.herokuapp.com/" + u; },
+  function(u){ return u; } // direct last (works on GitHub Pages / hosted)
+];
+
+var allProducts = [], cart = {}, qtys = {};
+
+async function loadSheet() {
+  showLoading();
+  var lastErr = "";
+  for (var i = 0; i < PROXIES.length; i++) {
+    try {
+      var url = PROXIES[i](SHEET_CSV + "&_=" + Date.now());
+      var res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) { lastErr = "HTTP " + res.status; continue; }
+      var text = await res.text();
+      if (!text || text.length < 20 || text.trim().charAt(0) === '<') {
+        lastErr = "Invalid response from proxy " + i;
+        continue;
+      }
+      var prods = parseCSV(text);
+      if (prods.length === 0) { lastErr = "Empty sheet or wrong columns"; continue; }
+      allProducts = prods;
+      populateBrands();
+      renderProducts();
+      document.getElementById("sbar").style.display = "flex";
+      document.getElementById("lupd").textContent = "Updated: " +
+        new Date().toLocaleTimeString("en-IN", {hour:"2-digit", minute:"2-digit"});
+      showToast("&#10003; Loaded " + allProducts.length + " products");
+      return; // success
+    } catch(e) { lastErr = e.message; continue; }
+  }
+  showError(lastErr);
+}
+
+// ── CSV PARSER ──────────────────────────────────────────
+function parseCSV(text) {
+  var lines = text.trim().split(/\r?\n/);
+  if (lines.length < 2) return [];
+  var hdrs = splitLine(lines[0]).map(function(h){ return h.replace(/"/g,"").toLowerCase().trim(); });
+
+  function col(names) {
+    for (var n=0;n<names.length;n++)
+      for (var h=0;h<hdrs.length;h++)
+        if (hdrs[h].indexOf(names[n])>=0) return h;
+    return -1;
+  }
+  var C = {
+    name:  col(["product name","name","medicine name","item name","product"]),
+    salt:  col(["salt composition","salt","composition","generic","molecule"]),
+    pack:  col(["pack size","pack"]),
+    box:   col(["box packing","box qty","box"]),
+    brand: col(["brand name","brand","company","manufacturer","mfr"]),
+    mrp:   col(["mrp","m.r.p","max retail","retail price"]),
+    rate:  col(["selling rate","selling price","our rate","rate","price","sp"]),
+    gst:   col(["gst%","gst rate","gst","tax%","tax"]),
+    image: col(["image url","image","img","photo","pic"])
+  };
+
+  var out = [];
+  for (var r=1; r<lines.length; r++) {
+    if (!lines[r].trim()) continue;
+    var cols = splitLine(lines[r]);
+    function g(k){ return C[k]>=0?(cols[C[k]]||"").replace(/"/g,"").trim():""; }
+    var nm = g("name"); if (!nm) continue;
+    out.push({
+      id:r, name:nm, salt:g("salt"), pack:g("pack"), box:g("box"), brand:g("brand"),
+      mrp:parseFloat(g("mrp"))||0, rate:parseFloat(g("rate"))||0,
+      gst:parseFloat(g("gst"))||12, image:g("image")
+    });
+  }
+  return out;
+}
+
+function splitLine(line) {
+  var res=[],cur="",inQ=false;
+  for(var i=0;i<line.length;i++){
+    if(line[i]==='"'){inQ=!inQ;continue;}
+    if(line[i]===','&&!inQ){res.push(cur);cur="";continue;}
+    cur+=line[i];
+  }
+  res.push(cur); return res;
+}
+
+// ── FILTERS ─────────────────────────────────────────────
+function populateBrands() {
+  var brands=[];
+  allProducts.forEach(function(p){if(p.brand&&brands.indexOf(p.brand)<0)brands.push(p.brand);});
+  brands.sort();
+  var sel=document.getElementById("brand-filter");
+  sel.innerHTML='<option value="">All Brands</option>'+
+    brands.map(function(b){return'<option value="'+esc(b)+'">'+esc(b)+'</option>';}).join("");
+}
+function getFiltered() {
+  var q=document.getElementById("search").value.toLowerCase().trim();
+  var br=document.getElementById("brand-filter").value;
+  var gs=document.getElementById("gst-filter").value;
+  return allProducts.filter(function(p){
+    if(br&&p.brand!==br)return false;
+    if(gs&&p.gst!=gs)return false;
+    if(q&&(p.name+" "+p.salt+" "+p.brand+" "+p.pack).toLowerCase().indexOf(q)<0)return false;
+    return true;
+  });
+}
+
+// ── RENDER ──────────────────────────────────────────────
+function renderProducts() {
+  var prods=getFiltered();
+  document.getElementById("stat-showing").textContent=prods.length;
+  document.getElementById("stat-total").textContent=allProducts.length;
+  var grid=document.getElementById("grid");
+  if(!prods.length){
+    grid.innerHTML='<div class="sbox"><span class="ico">&#128269;</span><h3>No products found</h3><p>Try a different search or clear the filters.</p></div>';
+    return;
+  }
+  grid.innerHTML=prods.map(function(p){
+    var inCart=!!cart[p.id], qty=qtys[p.id]||1;
+    var ga=(p.rate*p.gst/100).toFixed(2);
+    var disc=p.mrp>0?Math.round((1-p.rate/p.mrp)*100):0;
+    var imgH=p.image?'<img src="'+esc(p.image)+'" alt="'+esc(p.name)+'" onerror="this.parentNode.innerHTML=\'&#128138\'">':'&#128138;';
+    return '<div class="pc">'
+      +'<div class="pimg">'+imgH+'</div>'
+      +'<div class="pinfo">'
+        +'<div class="pbrand">'+esc(p.brand||'—')+'</div>'
+        +'<div class="pname" title="'+esc(p.name)+'">'+esc(p.name)+'</div>'
+        +'<div class="psalt" title="'+esc(p.salt||'')+'">'+esc(p.salt||'—')+'</div>'
+        +'<div class="ptags">'
+          +(p.pack?'<span class="ptag">&#128230; '+esc(p.pack)+'</span>':'')
+          +(p.box?'<span class="ptag">&#128451; '+esc(p.box)+'</span>':'')
+          +(disc>0&&disc<100?'<span class="ptag ptag-d">'+disc+'% off</span>':'')
+        +'</div>'
+        +'<div class="ppricing">'
+          +(p.mrp>0?'<span class="pmrp">MRP &#8377;'+p.mrp.toFixed(2)+'</span>':'')
+          +'<span class="prate">&#8377;'+p.rate.toFixed(2)+'</span>'
+          +'<span class="pgst">GST '+p.gst+'%</span>'
+          +'<span class="pgstamt">(+&#8377;'+ga+')</span>'
+        +'</div>'
+        +'<div class="qrow">'
+          +'<div class="qctrl">'
+            +'<button onclick="chQty('+p.id+',-1)">&#8722;</button>'
+            +'<input type="number" id="qty-'+p.id+'" value="'+qty+'" min="1" onchange="setQty('+p.id+',this.value)">'
+            +'<button onclick="chQty('+p.id+',1)">+</button>'
+          +'</div>'
+          +'<button class="abtn'+(inCart?' added':'')+'" id="ab-'+p.id+'" onclick="addCart('+p.id+')">'
+            +(inCart?'&#10003; Added':'Add to Cart')
+          +'</button>'
+        +'</div>'
+      +'</div>'
+    +'</div>';
+  }).join("");
+}
+
+// ── QTY ─────────────────────────────────────────────────
+function chQty(id,d){
+  var inp=document.getElementById("qty-"+id);
+  var v=Math.max(1,parseInt(inp.value||1)+d);
+  inp.value=v; qtys[id]=v;
+  if(cart[id]){cart[id]=v;updateBadge();}
+}
+function setQty(id,val){
+  var v=Math.max(1,parseInt(val)||1);
+  qtys[id]=v; document.getElementById("qty-"+id).value=v;
+  if(cart[id]){cart[id]=v;updateBadge();}
+}
+
+// ── CART ─────────────────────────────────────────────────
+function addCart(id){
+  cart[id]=qtys[id]||1; updateBadge();
+  var b=document.getElementById("ab-"+id);
+  if(b){b.classList.add("added");b.innerHTML="&#10003; Added";}
+  showToast("Added to cart");
+}
+function remCart(id){
+  delete cart[id]; updateBadge(); renderCart();
+  var b=document.getElementById("ab-"+id);
+  if(b){b.classList.remove("added");b.innerHTML="Add to Cart";}
+}
+function updateBadge(){
+  document.getElementById("cart-count").textContent=
+    Object.keys(cart).filter(function(i){return cart[i]>0;}).length;
+}
+function openCart(){document.getElementById("cart-ov").classList.add("open");renderCart();}
+function closeCart(){document.getElementById("cart-ov").classList.remove("open");}
+function ovClick(e){if(e.target.id==="cart-ov")closeCart();}
+
+function renderCart(){
+  var ids=Object.keys(cart).filter(function(i){return cart[i]>0;});
+  var body=document.getElementById("cbody"),foot=document.getElementById("cfoot");
+  if(!ids.length){
+    body.innerHTML='<div class="ecart"><span>&#128722;</span>Cart is empty.<br>Add medicines to get started.</div>';
+    foot.style.display="none"; return;
+  }
+  var sub=0,gstT=0;
+  var html=ids.map(function(id){
+    var p=allProducts.filter(function(x){return x.id==id;})[0]; if(!p)return"";
+    var qty=cart[id],base=p.rate*qty,gst=base*p.gst/100;
+    sub+=base; gstT+=gst;
+    return'<div class="citem"><div class="cdot"></div>'
+      +'<div class="cinfo"><div class="cname">'+esc(p.name)+'</div>'
+      +'<div class="cmeta">'+esc(p.brand)+' &bull; Qty:'+qty+' &times; &#8377;'+p.rate.toFixed(2)+' &bull; GST '+p.gst+'%</div>'
+      +'<button class="crem" onclick="remCart('+id+')">&#10005; Remove</button></div>'
+      +'<div class="cprice"><div class="cpm">&#8377;'+(base+gst).toFixed(2)+'</div>'
+      +'<div class="cps">incl. GST</div></div></div>';
+  }).join("");
+  var grand=sub+gstT;
+  body.innerHTML=html;
+  foot.style.display="block";
+  foot.innerHTML='<div class="tline"><span>Subtotal</span><span>&#8377;'+sub.toFixed(2)+'</span></div>'
+    +'<div class="tline"><span>GST</span><span>&#8377;'+gstT.toFixed(2)+'</span></div>'
+    +'<div class="tline grand"><span>Grand Total</span><span>&#8377;'+grand.toFixed(2)+'</span></div>'
+    +'<button class="pbtn" onclick="closeCart();openModal()">Place Order &#8594;</button>';
+}
+
+// ── ORDER ────────────────────────────────────────────────
+function openModal(){document.getElementById("order-modal").classList.add("open");}
+function closeModal(){document.getElementById("order-modal").classList.remove("open");}
+
+function sendWhatsApp(){
+  var med=document.getElementById("f-medical").value.trim();
+  var doc=document.getElementById("f-doctor").value.trim();
+  var ph=document.getElementById("f-phone").value.trim();
+  var nt=document.getElementById("f-notes").value.trim();
+  if(!med||!doc){alert("Please fill Medical/Hospital name and Doctor name.");return;}
+  var ids=Object.keys(cart).filter(function(i){return cart[i]>0;});
+  var sub=0,gstT=0,lines="";
+  ids.forEach(function(id){
+    var p=allProducts.filter(function(x){return x.id==id;})[0]; if(!p)return;
+    var qty=cart[id],base=p.rate*qty,gst=base*p.gst/100;
+    sub+=base; gstT+=gst;
+    lines+="\n* "+p.name+" ("+p.brand+")"
+      +"\n  Salt: "+(p.salt||"-")
+      +"\n  Pack: "+(p.pack||"-")+"  |  Box: "+(p.box||"-")
+      +"\n  Qty: "+qty+"  |  Rate: Rs."+p.rate.toFixed(2)+" + GST "+p.gst+"%"
+      +"\n  Line Total: Rs."+(base+gst).toFixed(2)+"\n";
+  });
+  var grand=sub+gstT;
+  var now=new Date().toLocaleString("en-IN");
+  var msg="NEW ORDER - H CARE PHARMA DISTRIBUTORS\n"
+    +"=========================================\n"
+    +"Medical/Hospital : "+med+"\n"
+    +"Doctor/Contact   : "+doc+"\n"
+    +(ph?"Phone            : "+ph+"\n":"")
+    +(nt?"Notes            : "+nt+"\n":"")
+    +"Order Time       : "+now+"\n"
+    +"=========================================\n"
+    +"ORDER ITEMS:\n"+lines
+    +"=========================================\n"
+    +"Subtotal   : Rs."+sub.toFixed(2)+"\n"
+    +"GST Total  : Rs."+gstT.toFixed(2)+"\n"
+    +"GRAND TOTAL: Rs."+grand.toFixed(2)+"\n"
+    +"=========================================\n"
+    +"Sent via H Care Pharma Order Portal - Aundipatti, Theni";
+  window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank");
+  cart={}; qtys={};
+  updateBadge(); closeModal();
+  ["f-medical","f-doctor","f-phone","f-notes"].forEach(function(fid){document.getElementById(fid).value="";});
+  renderProducts();
+  showToast("Order sent via WhatsApp!");
+}
+
+// ── HELPERS ──────────────────────────────────────────────
+function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function showLoading(){
+  document.getElementById("grid").innerHTML='<div class="sbox"><div class="spin"></div><h3>Loading Stock List...</h3><div class="pbar"><div class="pbar-fill"></div></div><p>Connecting to Google Sheet&hellip;</p></div>';
+  document.getElementById("sbar").style.display="none";
+}
+function showError(msg){
+  document.getElementById("grid").innerHTML=
+    '<div class="sbox"><span class="ico">&#9888;</span><h3>Could not load stock list</h3>'
+    +'<p><b>Quick fix:</b> Open this file in <b>Chrome or Edge</b> browser.<br><br>'
+    +'Also confirm your sheet is published:<br>'
+    +'Google Sheet &#8594; File &#8594; Share &#8594; Publish to web<br>'
+    +'Select sheet <b>HCare</b> &#8594; Format <b>CSV</b> &#8594; Publish<br><br>'
+    +(msg?'<small style="color:var(--or)">Detail: '+esc(msg)+'</small><br><br>':'')
+    +'<a onclick="loadSheet()">&#8635; Try again</a></p></div>';
+}
+function showToast(msg){
+  var t=document.getElementById("toast"); t.innerHTML=msg; t.classList.add("show");
+  setTimeout(function(){t.classList.remove("show");},2500);
+}
+
+loadSheet();
+</script>
+</body>
+</html>
