@@ -257,10 +257,13 @@ async function loadSheet() {
 }
 
 // ── CSV PARSER ──────────────────────────────────────────
+// Fully RFC-4180 compliant: handles quoted commas, newlines, special chars
 function parseCSV(text) {
-  var lines = text.trim().split(/\r?\n/);
-  if (lines.length < 2) return [];
-  var hdrs = splitLine(lines[0]).map(function(h){ return h.replace(/"/g,"").toLowerCase().trim(); });
+  // Step 1: tokenize entire CSV respecting quoted fields (handles multiline cells)
+  var allRows = tokenizeCSV(text);
+  if (allRows.length < 2) return [];
+
+  var hdrs = allRows[0].map(function(h){ return clean(h).toLowerCase(); });
 
   function col(names) {
     for (var n=0;n<names.length;n++)
@@ -276,15 +279,14 @@ function parseCSV(text) {
     brand: col(["brand name","brand","company","manufacturer","mfr"]),
     mrp:   col(["mrp","m.r.p","max retail","retail price"]),
     rate:  col(["selling rate","selling price","our rate","rate","price","sp"]),
-    gst:   col(["gst%","gst rate","gst %","gst","tax%","tax rate","tax"," gst"]),  
+    gst:   col(["gst%","gst rate","gst %","gst","tax%","tax rate","tax"," gst"]),
     image: col(["image url","image","img","photo","pic"])
   };
 
   var out = [];
-  for (var r=1; r<lines.length; r++) {
-    if (!lines[r].trim()) continue;
-    var cols = splitLine(lines[r]);
-    function g(k){ return C[k]>=0?(cols[C[k]]||"").replace(/"/g,"").trim():""; }
+  for (var r=1; r<allRows.length; r++) {
+    var cols = allRows[r];
+    function g(k){ return C[k]>=0 ? clean(cols[C[k]]||"") : ""; }
     var nm = g("name"); if (!nm) continue;
     out.push({
       id:r, name:nm, salt:g("salt"), pack:g("pack"), box:g("box"), brand:g("brand"),
@@ -295,7 +297,50 @@ function parseCSV(text) {
   return out;
 }
 
+// Clean field: remove quotes, invisible chars, trim
+function clean(s) {
+  // Preserve everything the user typed: +, /, &, %, (, ), -, ., #, @, spaces, etc.
+  // Only strip invisible zero-width chars and CSV wrapping quotes
+  return String(s||"")
+    .replace(/^"|"$/g,"")
+    .replace(/​|‌|‍|﻿|
+/g,"")
+    .trim();
+}
+
+// Full RFC-4180 CSV tokenizer — handles commas/newlines inside quoted fields
+function tokenizeCSV(text) {
+  // RFC-4180 compliant: preserves ALL characters including +/-/()&% in field values
+  var rows=[], row=[], cur="", inQ=false, i=0;
+  while(i < text.length) {
+    var c = text[i];
+    if (inQ) {
+      if (c==='"') {
+        if (text[i+1]==='"') { cur+='"'; i+=2; continue; } // escaped ""
+        else { inQ=false; i++; continue; }                  // closing quote
+      }
+      cur += c; // keep everything inside quotes as-is (newlines, commas, special chars)
+    } else {
+      if (c==='"')      { inQ=true; }
+      else if (c===',') { row.push(cur); cur=""; }
+      else if (c==='
+'){ row.push(cur); cur="";
+                          if(row.some(function(f){return f.replace(//g,"").trim()!="";}))
+                            rows.push(row);
+                          row=[]; }
+      else if (c===''){ /* skip */ }
+      else { cur+=c; }
+    }
+    i++;
+  }
+  // flush last row
+  row.push(cur);
+  if(row.some(function(f){return f.replace(//g,"").trim()!="";})) rows.push(row);
+  return rows;
+}
+
 function splitLine(line) {
+  // kept for compatibility — not used by main parser anymore
   var res=[],cur="",inQ=false;
   for(var i=0;i<line.length;i++){
     if(line[i]==='"'){inQ=!inQ;continue;}
@@ -329,7 +374,14 @@ function getFiltered() {
   return allProducts.filter(function(p){
     if(br&&p.brand!==br)return false;
     if(gs&&p.gst!=gs)return false;
-    if(q&&(p.name+" "+p.salt+" "+p.brand+" "+p.pack).toLowerCase().indexOf(q)<0)return false;
+    if(q){
+      // Search works with special chars: +, /, &, %, S/G, etc.
+      var hay=(p.name+" "+p.salt+" "+p.brand+" "+p.pack).toLowerCase();
+      var hayClean=hay.replace(/[^a-z0-9\s]/g," ");
+      var qClean=q.replace(/[^a-z0-9\s]/g," ");
+      // Match either original or cleaned version
+      if(hay.indexOf(q)<0 && hayClean.indexOf(qClean)<0) return false;
+    }
     return true;
   });
 }
